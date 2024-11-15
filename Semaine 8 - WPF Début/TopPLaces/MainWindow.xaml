@@ -1,0 +1,54 @@
+﻿<Window x:Class="TopPLaces.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TopPLaces"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1058">
+    <Window.Resources>
+        <Style x:Key="TitreStyle">
+            <Setter Property="Label.FontSize" Value="18" />
+            <Setter Property="Label.BorderBrush" Value="Black"/>
+            <Setter Property="Label.BorderThickness" Value="2"/>
+        </Style>
+        <Style x:Key="LabelStyle">
+            <Setter Property="Label.FontFamily" Value="courier new" />
+        </Style>
+        <DataTemplate x:Key="ItemTemplate">
+            <StackPanel  Orientation="Horizontal" Margin="0 5 0 5">
+                <Image Width="50" Height="50" Stretch="Fill" Source="{Binding Image}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="{Binding Description}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="204*"/>
+            <ColumnDefinition Width="251*"/>
+            <ColumnDefinition Width="469*"/>
+            <ColumnDefinition Width="135*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="listBoxPhotos" ItemsSource="{Binding}" Margin="10,10,228,10" ItemTemplate="{StaticResource ItemTemplate}" SelectionChanged="listBoxPhotos_SelectionChanged" Grid.ColumnSpan="2"/>
+        <Image x:Name="image1" HorizontalAlignment="Left" Height="423" Margin="52,46,0,0" VerticalAlignment="Top" Width="550" Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Label Content="Top Places" HorizontalAlignment="Left" Margin="145,0,0,0" VerticalAlignment="Top" Width="112" Style="{StaticResource TitreStyle}" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Label Content="Description : " HorizontalAlignment="Left" Margin="39,488,0,0" VerticalAlignment="Top" Style="{StaticResource LabelStyle}" Grid.Column="1"/>
+        <Label Content="URI Fichier :" HorizontalAlignment="Left" Margin="39,528,0,0" VerticalAlignment="Top" Style="{StaticResource LabelStyle}" Grid.Column="1" RenderTransformOrigin="0.37,1.774"/>
+        <Label Content="Nb Votes :" HorizontalAlignment="Left" Margin="39,589,0,0" VerticalAlignment="Top" Style="{StaticResource LabelStyle}" Grid.Column="1" RenderTransformOrigin="0.468,1.759"/>
+        <Label Name="description_value" Content="{Binding ElementName=listBoxPhotos,Path=SelectedItem.Description}" HorizontalAlignment="Left" Margin="154,488,0,0" VerticalAlignment="Top" Width="558" Grid.Column="1" Height="32" Grid.ColumnSpan="2"/>
+        <Label Name="uri_value" Margin="152,528,5,0" VerticalAlignment="Top" Width="562" Height="52" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding ElementName=listBoxPhotos,Path=SelectedItem.Path}" TextWrapping="WrapWithOverflow"/>
+
+        </Label>
+        <Label Name="votes_value" Content="{Binding ElementName=listBoxPhotos,Path=SelectedItem.NbVotes}" HorizontalAlignment="Left" Margin="152,592,0,0" VerticalAlignment="Top" Width="266" Grid.Column="1" Height="24" Grid.ColumnSpan="2"/>
+
+        <Button Click="Button_Click" Grid.Column="1" Margin="39,667,8,48">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="images/jaime.png" Height="35" Width="45" Margin="0,0,0,0" HorizontalAlignment="Left"/>
+                <TextBlock Text="Je vote pour" Width="124" Height="20"/>
+            </StackPanel>
+
+        </Button>
+
+    </Grid>
+</Window>
